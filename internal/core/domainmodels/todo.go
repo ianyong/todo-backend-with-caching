@@ -40,6 +40,10 @@ func (t *Todo) GetIsCompleted() bool {
 	return t.isCompleted
 }
 
+func (t *Todo) SetID(id int64) {
+	t.id = id
+}
+
 func (t *Todo) SetComplete() {
 	t.isCompleted = true
 }
