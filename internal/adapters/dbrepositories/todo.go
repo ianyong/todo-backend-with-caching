@@ -10,6 +10,15 @@ type TodoDatabaseRepository struct {
 	db *sqlx.DB
 }
 
+func (r *TodoDatabaseRepository) GetAll() ([]domainmodels.Todo, error) {
+	var todos []domainmodels.Todo
+	err := r.db.Select(&todos, "SELECT * FROM todos")
+	if err != nil {
+		return nil, err
+	}
+	return todos, nil
+}
+
 func (r *TodoDatabaseRepository) Get(id int64) (*domainmodels.Todo, error) {
 	var todo domainmodels.Todo
 	row := r.db.QueryRow("SELECT * FROM todos WHERE id = $1", id)
