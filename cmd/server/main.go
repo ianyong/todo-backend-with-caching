@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ianyong/todo-backend/internal/config"
+	"github.com/ianyong/todo-backend/internal/database"
 	"github.com/ianyong/todo-backend/internal/router"
 )
 
@@ -16,8 +17,13 @@ func main() {
 		log.Fatalf("failed to load config: %v\n", err)
 	}
 
+	db, err := database.SetUp(cfg)
+	if err != nil {
+		log.Fatalf("failed to connect to database: %v\n", err)
+	}
+
 	addr := fmt.Sprintf(":%d", cfg.ServerPort)
-	r := router.SetUp()
+	r := router.SetUp(db)
 
 	err = http.ListenAndServe(addr, r)
 	if err != nil {

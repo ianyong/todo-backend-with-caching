@@ -10,6 +10,12 @@ type TodoDatabaseRepository struct {
 	db *sqlx.DB
 }
 
+func NewTodoDatabaseRepository(db *sqlx.DB) *TodoDatabaseRepository {
+	return &TodoDatabaseRepository{
+		db: db,
+	}
+}
+
 func (r *TodoDatabaseRepository) GetAll() ([]domainmodels.Todo, error) {
 	var todos []domainmodels.Todo
 	err := r.db.Select(&todos, "SELECT * FROM todos")

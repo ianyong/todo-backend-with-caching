@@ -11,6 +11,12 @@ type TodoService struct {
 	todoRepo repositories.Todo
 }
 
+func NewTodoService(todoRepo repositories.Todo) *TodoService {
+	return &TodoService{
+		todoRepo: todoRepo,
+	}
+}
+
 func (s *TodoService) GetAllTodos() ([]domainmodels.Todo, error) {
 	todos, err := s.todoRepo.GetAll()
 	if err != nil {
