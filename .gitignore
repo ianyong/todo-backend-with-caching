@@ -4,3 +4,8 @@
 
 # Generated files
 bin/
+
+# Environment variable files
+.env
+.env.local
+.env.*.local
