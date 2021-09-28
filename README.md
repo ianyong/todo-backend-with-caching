@@ -23,3 +23,12 @@
    ```sh
    $ make run
    ```
+
+## Linting
+
+1. Install `golangci-lint` by following the instructions [here](https://golangci-lint.run/usage/install/#local-installation).
+1. Optionally, you can integrate the linter with your IDE if it is supported by following the instructions [here](https://golangci-lint.run/usage/integrations/).
+   Otherwise, you will need to run `make fmt` and `make lintfix` to automatically format and fix any lint violations before you commit any changes, or add a pre-commit Git hook that does it for you automatically.
+
+Note that `gosec` is a supported linter in `golangci-lint`.
+As such, there is no need to separately install `gosec` for local development.

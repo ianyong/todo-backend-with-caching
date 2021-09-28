@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/router"
 	"log"
 	"net/http"
+
+	"github.com/ianyong/todo-backend/internal/config"
+	"github.com/ianyong/todo-backend/internal/router"
 )
 
 // main is the entry point for the server.

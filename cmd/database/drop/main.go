@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/database"
 	"log"
 	"os"
+
+	"github.com/ianyong/todo-backend/internal/config"
+	"github.com/ianyong/todo-backend/internal/database"
 )
 
 const overrideEnvVar = "OVERRIDE_DATABASE_DELETE_SAFEGUARD"

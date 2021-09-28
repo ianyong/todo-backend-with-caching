@@ -2,9 +2,11 @@ package database
 
 import (
 	"fmt"
-	"github.com/ianyong/todo-backend/internal/config"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+
+	"github.com/ianyong/todo-backend/internal/config"
 )
 
 // SetUp sets up a sqlx.DB database connection and returns it.

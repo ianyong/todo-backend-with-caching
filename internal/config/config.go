@@ -3,13 +3,14 @@ package config
 import (
 	"errors"
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -113,7 +114,10 @@ func (cfg *Config) loadConfig() error {
 // which break upon building the server into an executable.
 func getProjectRootPath() string {
 	// Get full path of current file from runtime.
-	_, b, _, _ := runtime.Caller(0)
+	_, b, _, ok := runtime.Caller(0)
+	if !ok {
+		log.Fatalln("unable to retrieve root path of server")
+	}
 
 	// Traverse two parent directories up. Note that this is sensitive to the level of nesting
 	// of this file within the project structure.

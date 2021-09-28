@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+
+	"github.com/omeid/pgerror"
+
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/database"
-	"log"
-	"github.com/omeid/pgerror"
 )
 
 func main() {

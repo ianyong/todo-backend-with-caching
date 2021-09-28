@@ -29,6 +29,14 @@ fmt:
 	@echo "Formatting source files..."
 	@go fmt ./...
 
+lint:
+	@echo "Linting source files..."
+	@golangci-lint run
+
+lintfix:
+	@echo "Linting and automatically fixing source files..."
+	@golangci-lint run --fix
+
 clean:
 	@echo "Removing object files and cached files..."
 	@go clean

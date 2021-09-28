@@ -1,0 +1,21 @@
+name: gosec
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  gosec:
+    name: check
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Run Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
