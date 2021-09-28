@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/ianyong/todo-backend/internal/adapters/handlers"
+	"github.com/ianyong/todo-backend/internal/routes"
 )
 
 // SetUp sets up the middleware stack and routes for a chi.Router and returns it.
@@ -34,6 +34,6 @@ func setUpMiddleware(r chi.Router) {
 // setUpRoutes sets up the routes for a chi.Router. All API routes are namespaced with '/api/v1'.
 func setUpRoutes(r chi.Router) {
 	r.Route("/api/v1", func(r chi.Router) {
-		r.Get("/", handlers.HelloWorld)
+		r.Route("/todos", routes.GetTodoRoutes())
 	})
 }
