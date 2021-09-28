@@ -1,19 +1,21 @@
 package main
 
 import (
-	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/database"
 	"log"
-	"github.com/rubenv/sql-migrate"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/rubenv/sql-migrate"
+
+	"github.com/ianyong/todo-backend/internal/config"
+	"github.com/ianyong/todo-backend/internal/database"
 )
 
 const (
 	directionEnvVar = "MIGRATION_DIRECTION"
-	stepsEnvVar = "MIGRATION_STEPS"
-	stepsNoLimit = 0
+	stepsEnvVar     = "MIGRATION_STEPS"
+	stepsNoLimit    = 0
 )
 
 func main() {
