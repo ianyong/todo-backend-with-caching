@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/ianyong/todo-backend/internal/handlers"
+	"github.com/ianyong/todo-backend/internal/adapters/handlers"
 )
 
 // SetUp sets up the middleware stack and routes for a chi.Router and returns it.

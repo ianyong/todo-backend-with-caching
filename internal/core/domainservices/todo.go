@@ -14,7 +14,7 @@ type TodoService struct {
 
 func (s *TodoService) AddTodo(name string, description string, dueDate time.Time) error {
 	todo := domainmodels.NewTodo(name, description, dueDate)
-	err := s.repo.Add(*todo)
+	err := s.repo.Add(todo)
 	if err != nil {
 		return fmt.Errorf("unable to add todo: %w", err)
 	}
