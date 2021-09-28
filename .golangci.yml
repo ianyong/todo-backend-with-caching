@@ -1,0 +1,30 @@
+linters:
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exportloopref
+    - gci
+    - gosimple
+    - govet
+    - gochecknoinits
+    - gofmt
+    - lll
+    - ineffassign
+    - misspell
+    - nakedret
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - unconvert
+    - unparam
+    - varcheck
+    - whitespace
+
+linters-settings:
+  gci:
+    local-prefixes: github.com/ianyong/todo-backend
