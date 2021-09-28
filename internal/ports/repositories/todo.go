@@ -2,7 +2,7 @@ package repositories
 
 import "github.com/ianyong/todo-backend/internal/core/domainmodels"
 
-type TodoRepository interface {
+type Todo interface {
 	Get(id int64) (domainmodels.Todo, error)
 	Add(todo domainmodels.Todo) error
 	Update(todo domainmodels.Todo) error
