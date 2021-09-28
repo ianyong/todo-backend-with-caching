@@ -1,5 +1,10 @@
 BINARY_PATH=./bin/server/server.out
 SERVER_PATH=./cmd/server/main.go
+DB_CREATE_PATH=./cmd/database/create/main.go
+
+createdb:
+	@echo "Creating database..."
+	@go run ${DB_CREATE_PATH}
 
 build:
 	@echo "Building server at ${BINARY_PATH}..."
