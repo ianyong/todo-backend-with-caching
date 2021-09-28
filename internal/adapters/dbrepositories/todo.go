@@ -32,10 +32,10 @@ func (r *TodoDatabaseRepository) Get(id int64) (*domainmodels.Todo, error) {
 func (r *TodoDatabaseRepository) Add(todo *domainmodels.Todo) error {
 	_, err := r.db.Exec(
 		"INSERT INTO todos (name, description, due_date, is_completed) VALUES ($1, $2, $3, $4)",
-		todo.GetName(),
-		todo.GetDescription(),
-		todo.GetDueDate(),
-		todo.GetIsCompleted(),
+		todo.Name,
+		todo.Description,
+		todo.DueDate,
+		todo.IsCompleted,
 	)
 	if err != nil {
 		return err
@@ -46,11 +46,11 @@ func (r *TodoDatabaseRepository) Add(todo *domainmodels.Todo) error {
 func (r *TodoDatabaseRepository) Update(todo *domainmodels.Todo) error {
 	_, err := r.db.Exec(
 		"UPDATE todos SET name = $1, description = $2, due_date = $3, is_completed = $4 WHERE id = $5",
-		todo.GetName(),
-		todo.GetDescription(),
-		todo.GetDueDate(),
-		todo.GetIsCompleted(),
-		todo.GetID(),
+		todo.Name,
+		todo.Description,
+		todo.DueDate,
+		todo.IsCompleted,
+		todo.ID,
 	)
 	if err != nil {
 		return err

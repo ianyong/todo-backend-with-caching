@@ -2,7 +2,6 @@ package domainservices
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
 	"github.com/ianyong/todo-backend/internal/ports/repositories"
@@ -28,8 +27,7 @@ func (s *TodoService) GetTodo(id int64) (*domainmodels.Todo, error) {
 	return todo, nil
 }
 
-func (s *TodoService) AddTodo(name string, description string, dueDate time.Time) error {
-	todo := domainmodels.NewTodo(name, description, dueDate)
+func (s *TodoService) AddTodo(todo *domainmodels.Todo) error {
 	err := s.todoRepo.Add(todo)
 	if err != nil {
 		return fmt.Errorf("unable to add todo: %w", err)
@@ -37,12 +35,10 @@ func (s *TodoService) AddTodo(name string, description string, dueDate time.Time
 	return nil
 }
 
-func (s *TodoService) UpdateTodo(id int64, name string, description string, dueDate time.Time) error {
-	todo := domainmodels.NewTodo(name, description, dueDate)
-	todo.SetID(id)
+func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) error {
 	err := s.todoRepo.Update(todo)
 	if err != nil {
-		return fmt.Errorf("unable to update todo with id %d: %w", id, err)
+		return fmt.Errorf("unable to update todo with id %d: %w", todo.ID, err)
 	}
 	return nil
 }
