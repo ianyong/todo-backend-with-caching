@@ -8,6 +8,7 @@ import (
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/database"
 	"github.com/ianyong/todo-backend/internal/router"
+	"github.com/ianyong/todo-backend/internal/services"
 )
 
 // main is the entry point for the server.
@@ -22,8 +23,10 @@ func main() {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
+	s := services.SetUp(db)
+
 	addr := fmt.Sprintf(":%d", cfg.ServerPort)
-	r := router.SetUp(db)
+	r := router.SetUp(s)
 
 	err = http.ListenAndServe(addr, r)
 	if err != nil {

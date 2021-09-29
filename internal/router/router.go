@@ -5,16 +5,16 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/routes"
+	"github.com/ianyong/todo-backend/internal/services"
 )
 
 // SetUp sets up the middleware stack and routes for a chi.Router and returns it.
-func SetUp(db *sqlx.DB) chi.Router {
+func SetUp(s *services.Services) chi.Router {
 	r := chi.NewRouter()
 	setUpMiddleware(r)
-	setUpRoutes(r, db)
+	setUpRoutes(r, s)
 	return r
 }
 
@@ -33,8 +33,8 @@ func setUpMiddleware(r chi.Router) {
 }
 
 // setUpRoutes sets up the routes for a chi.Router. All API routes are namespaced with '/api/v1'.
-func setUpRoutes(r chi.Router, db *sqlx.DB) {
+func setUpRoutes(r chi.Router, s *services.Services) {
 	r.Route("/api/v1", func(r chi.Router) {
-		r.Route("/todos", routes.GetTodoRoutes(db))
+		r.Route("/todos", routes.GetTodoRoutes(s))
 	})
 }
