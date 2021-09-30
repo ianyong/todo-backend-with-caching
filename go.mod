@@ -9,6 +9,7 @@ require (
 	github.com/lib/pq v1.10.0
 	github.com/omeid/pgerror v0.0.0-20201018020948-42c66c4d27d4
 	github.com/rubenv/sql-migrate v0.0.0-20210614095031-55d5740dbbcc
+	gopkg.in/guregu/null.v4 v4.0.0
 )
 
 require (

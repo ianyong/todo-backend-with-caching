@@ -8,8 +8,8 @@ import (
 
 	"github.com/rubenv/sql-migrate"
 
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
 	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/database"
 )
 
 const (
