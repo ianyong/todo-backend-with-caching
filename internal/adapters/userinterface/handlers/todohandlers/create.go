@@ -18,6 +18,11 @@ func Create(r *http.Request, s *services.Services) (*api.Response, error) {
 		return nil, fmt.Errorf("unable to decode request body into params: %w", err)
 	}
 
+	err = createParams.Validate()
+	if err != nil {
+		return nil, fmt.Errorf("params failed validation: %w", err)
+	}
+
 	todo, err := s.TodoService.AddTodo(createParams.ToModel())
 	if err != nil {
 		return nil, err
