@@ -33,12 +33,12 @@ func (s *TodoService) GetTodo(id int64) (*domainmodels.Todo, error) {
 	return todo, nil
 }
 
-func (s *TodoService) AddTodo(todo *domainmodels.Todo) error {
-	err := s.todoRepo.Add(todo)
+func (s *TodoService) AddTodo(todo *domainmodels.Todo) (*domainmodels.Todo, error) {
+	todo, err := s.todoRepo.Add(todo)
 	if err != nil {
-		return fmt.Errorf("unable to add todo: %w", err)
+		return nil, fmt.Errorf("unable to add todo: %w", err)
 	}
-	return nil
+	return todo, nil
 }
 
 func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) error {
