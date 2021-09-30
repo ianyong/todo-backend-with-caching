@@ -11,7 +11,7 @@ type RecordNotFoundError struct {
 }
 
 func (e *RecordNotFoundError) Error() string {
-	return fmt.Sprintf("%s with ID %d could not be found.", e.Model, e.ID)
+	return fmt.Sprintf("%s with ID %d could not be found", e.Model, e.ID)
 }
 
 func (e *RecordNotFoundError) StatusCode() int {
