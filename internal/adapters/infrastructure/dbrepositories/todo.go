@@ -51,7 +51,7 @@ func (r *TodoDatabaseRepository) Add(todo *domainmodels.Todo) (*domainmodels.Tod
 	return r.Get(id)
 }
 
-func (r *TodoDatabaseRepository) Update(todo *domainmodels.Todo) error {
+func (r *TodoDatabaseRepository) Update(todo *domainmodels.Todo) (*domainmodels.Todo, error) {
 	_, err := r.db.Exec(
 		"UPDATE todos SET name = $1, description = $2, due_date = $3, is_completed = $4 WHERE id = $5",
 		todo.Name,
@@ -61,9 +61,10 @@ func (r *TodoDatabaseRepository) Update(todo *domainmodels.Todo) error {
 		todo.ID,
 	)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+
+	return r.Get(todo.ID)
 }
 
 func (r *TodoDatabaseRepository) Delete(id int64) error {

@@ -41,12 +41,12 @@ func (s *TodoService) AddTodo(todo *domainmodels.Todo) (*domainmodels.Todo, erro
 	return todo, nil
 }
 
-func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) error {
-	err := s.todoRepo.Update(todo)
+func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) (*domainmodels.Todo, error) {
+	todo, err := s.todoRepo.Update(todo)
 	if err != nil {
-		return fmt.Errorf("unable to update todo with id %d: %w", todo.ID, err)
+		return nil, fmt.Errorf("unable to update todo with id %d: %w", todo.ID, err)
 	}
-	return nil
+	return todo, nil
 }
 
 func (s *TodoService) DeleteTodo(id int64) (*domainmodels.Todo, error) {

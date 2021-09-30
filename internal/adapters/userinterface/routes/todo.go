@@ -14,6 +14,7 @@ func GetTodoRoutes(s *services.Services) func(r chi.Router) {
 		r.Post("/", api.WrapHandler(s, todohandlers.Create))
 		r.Route("/{id}", func(r chi.Router) {
 			r.Get("/", api.WrapHandler(s, todohandlers.Read))
+			r.Put("/", api.WrapHandler(s, todohandlers.Update))
 			r.Delete("/", api.WrapHandler(s, todohandlers.Destroy))
 		})
 	}
