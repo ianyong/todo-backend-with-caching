@@ -4,6 +4,7 @@ import (
 	"gopkg.in/guregu/null.v4"
 
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
+	"github.com/ianyong/todo-backend/internal/errors/externalerrors"
 )
 
 type UpdateParams struct {
@@ -12,6 +13,25 @@ type UpdateParams struct {
 	Description null.String `json:"description"`
 	DueDate     null.Time   `json:"dueDate"`
 	IsCompleted null.Bool   `json:"isCompleted"`
+}
+
+func (params *UpdateParams) Validate() error {
+	if params.ID.IsZero() {
+		return &externalerrors.MissingParamError{Param: "id"}
+	}
+	if params.Name.IsZero() {
+		return &externalerrors.MissingParamError{Param: "name"}
+	}
+	if params.Description.IsZero() {
+		return &externalerrors.MissingParamError{Param: "description"}
+	}
+	if params.DueDate.IsZero() {
+		return &externalerrors.MissingParamError{Param: "dueDate"}
+	}
+	if params.IsCompleted.IsZero() {
+		return &externalerrors.MissingParamError{Param: "isCompleted"}
+	}
+	return nil
 }
 
 func (params *UpdateParams) ToModel() *domainmodels.Todo {
