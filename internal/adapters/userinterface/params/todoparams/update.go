@@ -15,9 +15,12 @@ type UpdateParams struct {
 	IsCompleted null.Bool   `json:"isCompleted"`
 }
 
-func (params *UpdateParams) Validate() error {
+func (params *UpdateParams) Validate(id int64) error {
 	if params.ID.IsZero() {
 		return &externalerrors.MissingParamError{Param: "id"}
+	}
+	if !params.ID.Equal(null.IntFrom(id)) {
+		return &externalerrors.IDMismatchError{}
 	}
 	if params.Name.IsZero() {
 		return &externalerrors.MissingParamError{Param: "name"}
