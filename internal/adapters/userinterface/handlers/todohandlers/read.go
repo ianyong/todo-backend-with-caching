@@ -6,10 +6,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/ianyong/todo-backend/internal/api"
-	"github.com/ianyong/todo-backend/internal/json"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/json"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/views/todoviews"
 	"github.com/ianyong/todo-backend/internal/services"
-	"github.com/ianyong/todo-backend/internal/views/todoviews"
 )
 
 func Read(r *http.Request, s *services.Services) (*api.Response, error) {

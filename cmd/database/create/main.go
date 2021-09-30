@@ -5,8 +5,8 @@ import (
 
 	"github.com/omeid/pgerror"
 
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
 	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/database"
 )
 
 func main() {

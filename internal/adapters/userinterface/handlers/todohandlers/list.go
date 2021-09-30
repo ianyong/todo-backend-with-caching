@@ -3,10 +3,10 @@ package todohandlers
 import (
 	"net/http"
 
-	"github.com/ianyong/todo-backend/internal/api"
-	"github.com/ianyong/todo-backend/internal/json"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/json"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/views/todoviews"
 	"github.com/ianyong/todo-backend/internal/services"
-	"github.com/ianyong/todo-backend/internal/views/todoviews"
 )
 
 func List(r *http.Request, s *services.Services) (*api.Response, error) {

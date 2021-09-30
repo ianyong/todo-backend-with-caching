@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/ianyong/todo-backend/internal/api"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 

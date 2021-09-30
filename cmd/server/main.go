@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
-	"github.com/ianyong/todo-backend/internal/database"
-	"github.com/ianyong/todo-backend/internal/router"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 

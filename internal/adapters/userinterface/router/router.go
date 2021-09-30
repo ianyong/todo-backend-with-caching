@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/ianyong/todo-backend/internal/routes"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/routes"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 

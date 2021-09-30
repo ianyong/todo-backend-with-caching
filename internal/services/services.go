@@ -3,7 +3,7 @@ package services
 import (
 	"github.com/jmoiron/sqlx"
 
-	"github.com/ianyong/todo-backend/internal/adapters/dbrepositories"
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/dbrepositories"
 	"github.com/ianyong/todo-backend/internal/core/domainservices"
 )
 
