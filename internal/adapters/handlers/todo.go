@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/ianyong/todo-backend/internal/api"
+	"github.com/ianyong/todo-backend/internal/json"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
@@ -14,7 +14,7 @@ func GetAllTodos(r *http.Request, s *services.Services) (*api.Response, error) {
 		return nil, err
 	}
 
-	data, err := json.Marshal(todos)
+	data, err := json.EncodeView(todos)
 	if err != nil {
 		return nil, err
 	}
