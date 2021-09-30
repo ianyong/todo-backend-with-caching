@@ -49,10 +49,16 @@ func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) error {
 	return nil
 }
 
-func (s *TodoService) DeleteTodo(id int64) error {
-	err := s.todoRepo.Delete(id)
+func (s *TodoService) DeleteTodo(id int64) (*domainmodels.Todo, error) {
+	todo, err := s.todoRepo.Get(id)
 	if err != nil {
-		return fmt.Errorf("unable to delete todo with id %d: %w", id, err)
+		return nil, fmt.Errorf("unable to get todo with id %d: %w", id, err)
 	}
-	return nil
+
+	err = s.todoRepo.Delete(id)
+	if err != nil {
+		return nil, fmt.Errorf("unable to delete todo with id %d: %w", id, err)
+	}
+
+	return todo, nil
 }
