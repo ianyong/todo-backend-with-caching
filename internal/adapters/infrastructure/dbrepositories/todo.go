@@ -1,6 +1,8 @@
 package dbrepositories
 
 import (
+	"database/sql"
+	"github.com/ianyong/todo-backend/internal/errors/externalerrors"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
@@ -28,6 +30,12 @@ func (r *TodoDatabaseRepository) GetAll() ([]domainmodels.Todo, error) {
 func (r *TodoDatabaseRepository) Get(id int64) (*domainmodels.Todo, error) {
 	var todo domainmodels.Todo
 	err := r.db.Get(&todo, "SELECT * FROM todos WHERE id = $1", id)
+	if err == sql.ErrNoRows {
+		return nil, &externalerrors.RecordNotFoundError{
+			Model: "Todo",
+			ID:    id,
+		}
+	}
 	if err != nil {
 		return nil, err
 	}
