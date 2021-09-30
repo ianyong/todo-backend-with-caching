@@ -27,8 +27,7 @@ func (r *TodoDatabaseRepository) GetAll() ([]domainmodels.Todo, error) {
 
 func (r *TodoDatabaseRepository) Get(id int64) (*domainmodels.Todo, error) {
 	var todo domainmodels.Todo
-	row := r.db.QueryRow("SELECT * FROM todos WHERE id = $1", id)
-	err := row.Scan(&todo)
+	err := r.db.Get(&todo, "SELECT * FROM todos WHERE id = $1", id)
 	if err != nil {
 		return nil, err
 	}

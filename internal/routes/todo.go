@@ -11,5 +11,8 @@ import (
 func GetTodoRoutes(s *services.Services) func(r chi.Router) {
 	return func(r chi.Router) {
 		r.Get("/", api.WrapHandler(s, todohandlers.List))
+		r.Route("/{id}", func(r chi.Router) {
+			r.Get("/", api.WrapHandler(s, todohandlers.Read))
+		})
 	}
 }
