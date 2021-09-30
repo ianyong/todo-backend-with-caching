@@ -1,4 +1,4 @@
-package handlers
+package todohandlers
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/ianyong/todo-backend/internal/views/todoviews"
 )
 
-func GetAllTodos(r *http.Request, s *services.Services) (*api.Response, error) {
+func List(r *http.Request, s *services.Services) (*api.Response, error) {
 	todos, err := s.TodoService.GetAllTodos()
 	if err != nil {
 		return nil, err
