@@ -1,25 +1,25 @@
 package todoparams
 
 import (
-	"time"
+	"gopkg.in/guregu/null.v4"
 
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
 )
 
 type UpdateParams struct {
-	ID          int64     `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	DueDate     time.Time `json:"dueDate"`
-	IsCompleted bool      `json:"isCompleted"`
+	ID          null.Int    `json:"id"`
+	Name        null.String `json:"name"`
+	Description null.String `json:"description"`
+	DueDate     null.Time   `json:"dueDate"`
+	IsCompleted null.Bool   `json:"isCompleted"`
 }
 
 func (params *UpdateParams) ToModel() *domainmodels.Todo {
 	return &domainmodels.Todo{
-		ID:          params.ID,
-		Name:        params.Name,
-		Description: params.Description,
-		DueDate:     params.DueDate,
-		IsCompleted: params.IsCompleted,
+		ID:          params.ID.ValueOrZero(),
+		Name:        params.Name.ValueOrZero(),
+		Description: params.Description.ValueOrZero(),
+		DueDate:     params.DueDate.ValueOrZero(),
+		IsCompleted: params.IsCompleted.ValueOrZero(),
 	}
 }

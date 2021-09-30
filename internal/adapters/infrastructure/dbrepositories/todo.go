@@ -2,10 +2,11 @@ package dbrepositories
 
 import (
 	"database/sql"
-	"github.com/ianyong/todo-backend/internal/errors/externalerrors"
+
 	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
+	"github.com/ianyong/todo-backend/internal/errors/externalerrors"
 )
 
 type TodoDatabaseRepository struct {
