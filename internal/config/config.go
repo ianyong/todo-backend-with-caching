@@ -56,6 +56,19 @@ func Load() (*Config, error) {
 	return &cfg, nil
 }
 
+// LoadTest loads the application configuration for running tests.
+func LoadTest() (*Config, error) {
+	var cfg Config
+	cfg.Environment = envTest
+
+	err := cfg.loadConfig()
+	if err != nil {
+		return nil, fmt.Errorf(configLoadErrTemplate, err)
+	}
+
+	return &cfg, nil
+}
+
 // loadEnvironment loads the GO_ENV environment variable from the shell environment.
 // If GO_ENV is not set, it defaults to the 'development' environment.
 func (cfg *Config) loadEnvironment() error {
