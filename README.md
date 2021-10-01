@@ -11,8 +11,6 @@
    * macOS: `/tmp`
 
    Note that if you are connecting via `localhost`, you might need to set `DB_SSLMODE=disable`.
-
-   For the sake of running tests, make a copy of `.env.test` as `.env.test.local` as well.
 1. Create the database.
    ```sh
    $ make createdb
@@ -34,3 +32,20 @@
 
 Note that `gosec` is a supported linter in `golangci-lint`.
 As such, there is no need to separately install `gosec` for local development.
+
+## Running Tests
+
+1. Make a copy of `.env.test` as `.env.test.local`.
+   The configuration should be similar to `.env.development.local` as described above, but with a different database name.
+1. Create the test database.
+   ```sh
+   $ make createtestdb
+   ```
+1. Migrate the test database.
+   ```sh
+   $ make migratetestdb
+   ```
+1. Run the tests.
+   ```sh
+   $ make test
+   ```
