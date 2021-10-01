@@ -11,6 +11,8 @@
    * macOS: `/tmp`
 
    Note that if you are connecting via `localhost`, you might need to set `DB_SSLMODE=disable`.
+
+   For the sake of running tests, make a copy of `.env.test` as `.env.test.local` as well.
 1. Create the database.
    ```sh
    $ make createdb

@@ -41,3 +41,7 @@ clean:
 	@echo "Removing object files and cached files..."
 	@go clean
 	@rm ${BINARY_PATH}
+
+test:
+	@echo "Running tests..."
+	@GO_ENV=test go test ./...
