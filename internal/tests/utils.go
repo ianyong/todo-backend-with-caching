@@ -10,8 +10,13 @@ import (
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
+type TestComponents struct {
+	DB       *sqlx.DB
+	Services *services.Services
+}
+
 // SetUp initialises the database and services in a test environment.
-func SetUp() (*sqlx.DB, *services.Services) {
+func SetUp() *TestComponents {
 	cfg, err := config.LoadTest()
 	if err != nil {
 		log.Fatalf("failed to load config: %v\n", err)
@@ -23,5 +28,8 @@ func SetUp() (*sqlx.DB, *services.Services) {
 	}
 
 	s := services.SetUp(db)
-	return db, s
+	return &TestComponents{
+		DB:       db,
+		Services: s,
+	}
 }
