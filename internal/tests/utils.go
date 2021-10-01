@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/jmoiron/sqlx"
@@ -32,4 +33,16 @@ func SetUp() *TestComponents {
 		DB:       db,
 		Services: s,
 	}
+}
+
+// TruncateTables truncates the specified tables from the test database.
+func (c *TestComponents) TruncateTables(tables ...string) error {
+	for _, table := range tables {
+		// Note: PostgreSQL does not support placeholder arguments for the TRUNCATE command.
+		_, err := c.DB.Exec(fmt.Sprintf("TRUNCATE %s RESTART IDENTITY CASCADE", table))
+		if err != nil {
+			return fmt.Errorf("unable to truncate table '%s': %w", table, err)
+		}
+	}
+	return nil
 }
