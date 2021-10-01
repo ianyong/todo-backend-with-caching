@@ -3,13 +3,15 @@ package tests
 import (
 	"log"
 
+	"github.com/jmoiron/sqlx"
+
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
-// SetUp initialises the application and domain services in a test environment.
-func SetUp() *services.Services {
+// SetUp initialises the database and services in a test environment.
+func SetUp() (*sqlx.DB, *services.Services) {
 	cfg, err := config.LoadTest()
 	if err != nil {
 		log.Fatalf("failed to load config: %v\n", err)
@@ -21,5 +23,5 @@ func SetUp() *services.Services {
 	}
 
 	s := services.SetUp(db)
-	return s
+	return db, s
 }
