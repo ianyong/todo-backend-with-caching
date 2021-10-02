@@ -17,7 +17,7 @@ type TestComponents struct {
 }
 
 // SetUp initialises the database and services in a test environment.
-func SetUp() *TestComponents {
+func SetUp() TestComponents {
 	cfg, err := config.LoadTest()
 	if err != nil {
 		log.Fatalf("failed to load config: %v\n", err)
@@ -29,7 +29,7 @@ func SetUp() *TestComponents {
 	}
 
 	s := services.SetUp(db)
-	return &TestComponents{
+	return TestComponents{
 		DB:       db,
 		Services: s,
 	}

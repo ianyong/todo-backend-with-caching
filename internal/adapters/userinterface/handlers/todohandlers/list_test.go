@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
+
+	"github.com/stretchr/testify/suite"
 
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/views/todoviews"
@@ -13,36 +14,37 @@ import (
 	"github.com/ianyong/todo-backend/internal/tests/testseeds"
 )
 
-var testComponents *tests.TestComponents
-
-func TestMain(m *testing.M) {
-	testComponents = tests.SetUp()
-	exitCode := m.Run()
-	os.Exit(exitCode)
+type ListTodosTestSuite struct {
+	suite.Suite
+	tests.TestComponents
 }
 
-func TestListTodos(t *testing.T) {
-	err := testseeds.SeedTodos(testComponents.DB)
+func (s *ListTodosTestSuite) SetupTest() {
+	s.TestComponents = tests.SetUp()
+}
+
+func (s *ListTodosTestSuite) TestListTodos() {
+	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
-		t.Errorf("Error seeding todos: %v", err)
+		s.T().Errorf("Error seeding todos: %v", err)
 	}
 
 	request, err := http.NewRequest("GET", "/api/v1/todos", nil)
 	if err != nil {
-		t.Errorf("Error creating request: %v", err)
+		s.T().Errorf("Error creating request: %v", err)
 	}
 
 	responseRecorder := httptest.NewRecorder()
-	handler := api.WrapHandler(testComponents.Services, List)
+	handler := api.WrapHandler(s.Services, List)
 	handler.ServeHTTP(responseRecorder, request)
 
-	tests.CheckResponseCode(t, http.StatusOK, responseRecorder.Code)
+	tests.CheckResponseCode(s.T(), http.StatusOK, responseRecorder.Code)
 
-	body := tests.GetResponseBody(t, responseRecorder.Body)
+	body := tests.GetResponseBody(s.T(), responseRecorder.Body)
 	var actualTodos []todoviews.ListView
 	err = json.Unmarshal(body.Payload, &actualTodos)
 	if err != nil {
-		t.Errorf("Error decoding response body: %v", err)
+		s.T().Errorf("Error decoding response body: %v", err)
 	}
 
 	expectedTodos := make([]todoviews.ListView, len(testseeds.TodoSeeds))
@@ -51,34 +53,38 @@ func TestListTodos(t *testing.T) {
 		expectedTodos[i] = todoviews.ListViewFrom(&todo)
 	}
 
-	tests.CheckResponseBody(t, expectedTodos, actualTodos)
+	tests.CheckResponseBody(s.T(), expectedTodos, actualTodos)
 
-	err = testComponents.TruncateTables("todos")
+	err = s.TruncateTables("todos")
 	if err != nil {
-		t.Errorf("Error truncating tables: %v", err)
+		s.T().Errorf("Error truncating tables: %v", err)
 	}
 }
 
-func TestListTodosEmptyCollection(t *testing.T) {
+func (s *ListTodosTestSuite) TestListTodosEmptyCollection() {
 	request, err := http.NewRequest("GET", "/api/v1/todos", nil)
 	if err != nil {
-		t.Errorf("Error creating request: %v", err)
+		s.T().Errorf("Error creating request: %v", err)
 	}
 
 	responseRecorder := httptest.NewRecorder()
-	handler := api.WrapHandler(testComponents.Services, List)
+	handler := api.WrapHandler(s.Services, List)
 	handler.ServeHTTP(responseRecorder, request)
 
-	tests.CheckResponseCode(t, http.StatusOK, responseRecorder.Code)
+	tests.CheckResponseCode(s.T(), http.StatusOK, responseRecorder.Code)
 
-	body := tests.GetResponseBody(t, responseRecorder.Body)
+	body := tests.GetResponseBody(s.T(), responseRecorder.Body)
 	var actualTodos []todoviews.ListView
 	err = json.Unmarshal(body.Payload, &actualTodos)
 	if err != nil {
-		t.Errorf("Error decoding response body: %v", err)
+		s.T().Errorf("Error decoding response body: %v", err)
 	}
 
 	expectedTodos := []todoviews.ListView{}
 
-	tests.CheckResponseBody(t, expectedTodos, actualTodos)
+	tests.CheckResponseBody(s.T(), expectedTodos, actualTodos)
+}
+
+func TestListTodosTestSuite(t *testing.T) {
+	suite.Run(t, new(ListTodosTestSuite))
 }
