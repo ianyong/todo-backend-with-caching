@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
 )
@@ -14,6 +16,7 @@ import (
 type TestComponents struct {
 	DB       *sqlx.DB
 	Services *services.Services
+	Router   chi.Router
 }
 
 // SetUp initialises the database and services in a test environment.
@@ -29,9 +32,12 @@ func SetUp() TestComponents {
 	}
 
 	s := services.SetUp(db)
+	r := router.SetUp(s)
+
 	return TestComponents{
 		DB:       db,
 		Services: s,
+		Router:   r,
 	}
 }
 

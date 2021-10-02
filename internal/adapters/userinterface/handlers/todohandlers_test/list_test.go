@@ -8,7 +8,6 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/views/todoviews"
 	"github.com/ianyong/todo-backend/internal/tests"
 	"github.com/ianyong/todo-backend/internal/tests/testseeds"
@@ -29,14 +28,13 @@ func (s *ListTodosTestSuite) TestListTodos() {
 		s.T().Errorf("Error seeding todos: %v", err)
 	}
 
-	request, err := http.NewRequest("GET", "/api/v1/todos", nil)
+	request, err := http.NewRequest(http.MethodGet, "/api/v1/todos", nil)
 	if err != nil {
 		s.T().Errorf("Error creating request: %v", err)
 	}
 
 	responseRecorder := httptest.NewRecorder()
-	handler := api.WrapHandler(s.Services, List)
-	handler.ServeHTTP(responseRecorder, request)
+	s.Router.ServeHTTP(responseRecorder, request)
 
 	tests.CheckResponseCode(s.T(), http.StatusOK, responseRecorder.Code)
 
@@ -62,14 +60,13 @@ func (s *ListTodosTestSuite) TestListTodos() {
 }
 
 func (s *ListTodosTestSuite) TestListTodosEmptyCollection() {
-	request, err := http.NewRequest("GET", "/api/v1/todos", nil)
+	request, err := http.NewRequest(http.MethodGet, "/api/v1/todos", nil)
 	if err != nil {
 		s.T().Errorf("Error creating request: %v", err)
 	}
 
 	responseRecorder := httptest.NewRecorder()
-	handler := api.WrapHandler(s.Services, List)
-	handler.ServeHTTP(responseRecorder, request)
+	s.Router.ServeHTTP(responseRecorder, request)
 
 	tests.CheckResponseCode(s.T(), http.StatusOK, responseRecorder.Code)
 
