@@ -22,7 +22,7 @@ func (s *DestroyTodoTestSuite) SetupTest() {
 	s.TestComponents = tests.SetUp()
 }
 
-func (s *ListTodosTestSuite) TestDestroyTodo() {
+func (s *DestroyTodoTestSuite) TestDestroyTodo() {
 	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
 		s.T().Errorf("Error seeding todos: %v", err)
@@ -55,7 +55,7 @@ func (s *ListTodosTestSuite) TestDestroyTodo() {
 	}
 }
 
-func (s *ListTodosTestSuite) TestDestroyNonExistentTodo() {
+func (s *DestroyTodoTestSuite) TestDestroyNonExistentTodo() {
 	request, err := http.NewRequest(http.MethodDelete, "/api/v1/todos/4", nil)
 	if err != nil {
 		s.T().Errorf("Error creating request: %v", err)

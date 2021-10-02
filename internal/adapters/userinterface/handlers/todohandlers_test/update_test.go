@@ -40,7 +40,7 @@ var updatedTodo = todoviews.View{
 	IsCompleted: true,
 }
 
-func (s *CreateTodoTestSuite) TestUpdateTodo() {
+func (s *UpdateTodoTestSuite) TestUpdateTodo() {
 	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
 		s.T().Errorf("Error seeding todos: %v", err)
@@ -73,7 +73,7 @@ func (s *CreateTodoTestSuite) TestUpdateTodo() {
 	}
 }
 
-func (s *CreateTodoTestSuite) TestUpdateTodoIDMismatch() {
+func (s *UpdateTodoTestSuite) TestUpdateTodoIDMismatch() {
 	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
 		s.T().Errorf("Error seeding todos: %v", err)
@@ -113,7 +113,7 @@ const missingFieldUpdateJSON = `{
     "dueDate": "2021-11-01T00:00:00.000000+00:00"
 }`
 
-func (s *CreateTodoTestSuite) TestUpdateTodoMissingField() {
+func (s *UpdateTodoTestSuite) TestUpdateTodoMissingField() {
 	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
 		s.T().Errorf("Error seeding todos: %v", err)
@@ -155,7 +155,7 @@ const extraFieldUpdateJSON = `{
     "isCompleted": true
 }`
 
-func (s *CreateTodoTestSuite) TestUpdateTodoExtraField() {
+func (s *UpdateTodoTestSuite) TestUpdateTodoExtraField() {
 	err := testseeds.SeedTodos(s.DB)
 	if err != nil {
 		s.T().Errorf("Error seeding todos: %v", err)
@@ -188,7 +188,7 @@ func (s *CreateTodoTestSuite) TestUpdateTodoExtraField() {
 	}
 }
 
-func (s *CreateTodoTestSuite) TestUpdateNonExistentTodo() {
+func (s *UpdateTodoTestSuite) TestUpdateNonExistentTodo() {
 	request, err := http.NewRequest(http.MethodPut, "/api/v1/todos/2", strings.NewReader(validUpdateJSON))
 	if err != nil {
 		s.T().Errorf("Error creating request: %v", err)
