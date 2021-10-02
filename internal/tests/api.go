@@ -3,8 +3,9 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
 )
@@ -25,7 +26,7 @@ func GetResponseBody(t *testing.T, body *bytes.Buffer) *api.Response {
 }
 
 func CheckResponseBody(t *testing.T, expected interface{}, actual interface{}) {
-	if !reflect.DeepEqual(expected, actual) {
+	if !cmp.Equal(expected, actual) {
 		t.Errorf("Incorrect response body. Expected: %v. Got: %v.", expected, actual)
 	}
 }
