@@ -12,8 +12,8 @@ import (
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
-// SetUp sets up the middleware stack and routes for a chi.Router and returns it.
-func SetUp(s *services.Services) chi.Router {
+// SetUp sets up the middleware stack and routes for a chi.Mux and returns it.
+func SetUp(s *services.Services) *chi.Mux {
 	r := chi.NewRouter()
 	setUpMiddleware(r)
 	setUpRoutes(r, s)

@@ -1,5 +1,7 @@
-BINARY_PATH=./bin/server/server.out
+BINARY_PATH=./bin/server
 SERVER_PATH=./cmd/server/main.go
+LAMBDA_BINARY_PATH=./bin/lambdaserver
+LAMBDA_SERVER_PATH=./cmd/lambdaserver/main.go
 DB_CREATE_PATH=./cmd/database/create/main.go
 DB_MIGRATE_PATH=./cmd/database/migrate/main.go
 DB_DROP_PATH=./cmd/database/drop/main.go
@@ -35,10 +37,19 @@ build:
 	@echo "Building server at ${BINARY_PATH}..."
 	@go build -o ${BINARY_PATH} ${SERVER_PATH}
 
+buildlambda:
+	@echo "Building AWS Lambda server at ${LAMBDA_BINARY_PATH}..."
+	@go build -o ${LAMBDA_BINARY_PATH} ${LAMBDA_SERVER_PATH}
+
 run:
 	@echo "Running server..."
 	@go build -o ${BINARY_PATH} ${SERVER_PATH}
 	@eval ${BINARY_PATH}
+
+runlambda:
+	@echo "Running AWS Lambda server..."
+	@go build -o ${LAMBDA_BINARY_PATH} ${LAMBDA_SERVER_PATH}
+	@eval ${LAMBDA_BINARY_PATH}
 
 fmt:
 	@echo "Formatting source files..."
