@@ -42,7 +42,12 @@ func (s *TodoService) AddTodo(todo *domainmodels.Todo) (*domainmodels.Todo, erro
 }
 
 func (s *TodoService) UpdateTodo(todo *domainmodels.Todo) (*domainmodels.Todo, error) {
-	todo, err := s.todoRepo.Update(todo)
+	_, err := s.todoRepo.Get(todo.ID)
+	if err != nil {
+		return nil, fmt.Errorf("unable to get todo with id %d: %w", todo.ID, err)
+	}
+
+	todo, err = s.todoRepo.Update(todo)
 	if err != nil {
 		return nil, fmt.Errorf("unable to update todo with id %d: %w", todo.ID, err)
 	}

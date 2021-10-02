@@ -1,0 +1,44 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until PostgreSQL has started.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Map TCP port 5432 on service container to the host.
+          - 5432:5432
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Replace .env.test with .env.test.ci
+        run: cp .env.test.ci .env.test
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+      - name: Set up Test Database
+        run: |
+          make createtestdb
+          make migratetestdb
+      - name: Build
+        run: make build
+      - name: Run Tests
+        run: make test

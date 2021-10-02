@@ -6,6 +6,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
+	"github.com/ianyong/todo-backend/internal/adapters/userinterface/handlers"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/routes"
 	"github.com/ianyong/todo-backend/internal/services"
 )
@@ -37,4 +39,5 @@ func setUpRoutes(r chi.Router, s *services.Services) {
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Route("/todos", routes.GetTodoRoutes(s))
 	})
+	r.NotFound(api.WrapHandler(s, handlers.NotFound))
 }
