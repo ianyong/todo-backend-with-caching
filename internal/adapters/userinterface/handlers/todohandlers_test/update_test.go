@@ -188,6 +188,29 @@ func (s *CreateTodoTestSuite) TestUpdateTodoExtraField() {
 	}
 }
 
+func (s *CreateTodoTestSuite) TestUpdateNonExistentTodo() {
+	request, err := http.NewRequest(http.MethodPut, "/api/v1/todos/2", strings.NewReader(validUpdateJSON))
+	if err != nil {
+		s.T().Errorf("Error creating request: %v", err)
+	}
+
+	responseRecorder := httptest.NewRecorder()
+	s.Router.ServeHTTP(responseRecorder, request)
+
+	tests.CheckResponseCode(s.T(), http.StatusNotFound, responseRecorder.Code)
+
+	body := tests.GetResponseBody(s.T(), responseRecorder.Body)
+	var actualTodo todoviews.View
+	err = json.Unmarshal(body.Payload, &actualTodo)
+	if err != nil {
+		s.T().Errorf("Error decoding response body: %v", err)
+	}
+
+	expectedTodo := todoviews.View{}
+
+	tests.CheckResponseBody(s.T(), expectedTodo, actualTodo)
+}
+
 func TestUpdateTodoTestSuite(t *testing.T) {
 	suite.Run(t, new(UpdateTodoTestSuite))
 }
