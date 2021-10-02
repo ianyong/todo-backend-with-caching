@@ -59,7 +59,7 @@ package:
 
 functions:
   app:
-    handler: bin/server/server.out
+    handler: bin/lambdaserver
     events:
       - http: ANY /
 #    The following are a few example events you can configure

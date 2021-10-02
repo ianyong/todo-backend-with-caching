@@ -3,8 +3,9 @@ module github.com/ianyong/todo-backend
 go 1.17
 
 require (
+	github.com/awslabs/aws-lambda-go-api-proxy v0.11.0
 	github.com/go-chi/chi/v5 v5.0.4
-	github.com/google/go-cmp v0.4.0
+	github.com/google/go-cmp v0.5.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/joho/godotenv v1.4.0
 	github.com/lib/pq v1.10.0
@@ -15,9 +16,10 @@ require (
 )
 
 require (
+	github.com/aws/aws-lambda-go v1.19.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	gopkg.in/gorp.v1 v1.7.2 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
