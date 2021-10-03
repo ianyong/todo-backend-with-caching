@@ -29,7 +29,7 @@ func main() {
 	}
 
 	s := services.SetUp(db)
-	r := router.SetUp(s)
+	r := router.SetUp(s, cfg)
 	l = chiadapter.New(r)
 
 	lambda.Start(lambdaHandler)
