@@ -42,6 +42,10 @@ func serveHTTPResponse(w http.ResponseWriter, response *Response) {
 		response = &Response{}
 	}
 
+	if response.Messages == nil {
+		response.Messages = []StatusMessage{}
+	}
+
 	if response.Code > 0 {
 		w.WriteHeader(response.Code)
 	}
