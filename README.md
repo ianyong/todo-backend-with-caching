@@ -25,6 +25,7 @@ Frontend: https://github.com/ianyong/todo-frontend
    $ make migratedb
    ```
 1. Start the server.
+   By default, the backend is accessible at http://localhost:8000/.
    ```sh
    $ make run
    ```
