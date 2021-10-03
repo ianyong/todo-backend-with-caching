@@ -1,5 +1,10 @@
 # To-do Backend
 
+Created for CS3219 Software Engineering Principles and Patterns Own Time Own Target (OTOT) Task B.
+Makes use of the Ports & Adapters architecture.
+
+Frontend: https://github.com/ianyong/todo-frontend
+
 ## Getting Started
 
 1. Install Go `>= 1.17` by following the instructions [here](https://golang.org/doc/install).
@@ -20,6 +25,7 @@
    $ make migratedb
    ```
 1. Start the server.
+   By default, the backend is accessible at http://localhost:8000/.
    ```sh
    $ make run
    ```
@@ -48,4 +54,30 @@ As such, there is no need to separately install `gosec` for local development.
 1. Run the tests.
    ```sh
    $ make test
+   ```
+
+## Deployment
+
+Deployment makes use of the [Serverless Framework](https://www.serverless.com/).
+To deploy to AWS Lambda manually:
+
+1. Install Node `>= 14` by following the instructions [here](https://nodejs.org/en/download/).
+1. Install the Serverless Framework:
+   ```sh
+   $ npm install -g serverless
+   ```
+1. Build the server for use with AWS Lambda.
+   Note that the normal server has to be wrapped with a translation layer so that the server is able to understand API requests and responses that go through AWS Lambda.
+   ``` sh
+   $ make buildlambda
+   ```
+1. Export the environment variables (see any of the `.env.*` files) for the database connection that will be used by the AWS Lambda function.
+1. Migrate the database that will be used.
+   Make sure that the correct environment variables are loaded from the step before.
+   ```sh
+   $ GO_ENV=production make migratedb
+   ```
+1. Deploy the server.
+   ```sh
+   $ serverless deploy
    ```
