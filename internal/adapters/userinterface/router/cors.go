@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/cors"
 )
 
-var productionOrigins = []string{}
+var productionOrigins = []string{"https://ianyong.github.io/todo-frontend/"}
 var developmentOrigins = []string{"http://localhost:3000"}
 
 func corsMiddleware(environment string) func(http.Handler) http.Handler {
