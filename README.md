@@ -1,5 +1,10 @@
 # To-do Backend
 
+Created for CS3219 Software Engineering Principles and Patterns Own Time Own Target (OTOT) Task B.
+Makes use of the Ports & Adapters architecture.
+
+Frontend: https://github.com/ianyong/todo-frontend
+
 ## Getting Started
 
 1. Install Go `>= 1.17` by following the instructions [here](https://golang.org/doc/install).
