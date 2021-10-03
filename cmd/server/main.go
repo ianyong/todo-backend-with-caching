@@ -26,7 +26,7 @@ func main() {
 	s := services.SetUp(db)
 
 	addr := fmt.Sprintf(":%d", cfg.ServerPort)
-	r := router.SetUp(s)
+	r := router.SetUp(s, cfg)
 
 	err = http.ListenAndServe(addr, r)
 	if err != nil {

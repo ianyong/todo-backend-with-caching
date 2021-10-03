@@ -32,7 +32,7 @@ func SetUp() TestComponents {
 	}
 
 	s := services.SetUp(db)
-	r := router.SetUp(s)
+	r := router.SetUp(s, cfg)
 
 	return TestComponents{
 		DB:       db,

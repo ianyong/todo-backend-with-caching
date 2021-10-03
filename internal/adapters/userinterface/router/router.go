@@ -9,19 +9,20 @@ import (
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/api"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/handlers"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/routes"
+	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
 // SetUp sets up the middleware stack and routes for a chi.Mux and returns it.
-func SetUp(s *services.Services) *chi.Mux {
+func SetUp(s *services.Services, cfg *config.Config) *chi.Mux {
 	r := chi.NewRouter()
-	setUpMiddleware(r)
+	setUpMiddleware(r, cfg)
 	setUpRoutes(r, s)
 	return r
 }
 
 // setUpMiddleware sets up the middleware stack for a chi.Router.
-func setUpMiddleware(r chi.Router) {
+func setUpMiddleware(r chi.Router, cfg *config.Config) {
 	// Injects a request ID in the context of each request.
 	r.Use(middleware.RequestID)
 	// Sets a http.Request's RemoteAddr to that of either the X-Forwarded-For or X-Real-IP header.
@@ -32,6 +33,8 @@ func setUpMiddleware(r chi.Router) {
 	r.Use(middleware.Recoverer)
 	// Returns a 504 Gateway Timeout after 1 min.
 	r.Use(middleware.Timeout(time.Minute))
+	// Sets up Cross-Origin Resource Sharing.
+	r.Use(corsMiddleware(cfg.Environment))
 }
 
 // setUpRoutes sets up the routes for a chi.Router. All API routes are namespaced with '/api/v1'.
