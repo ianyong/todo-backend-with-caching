@@ -41,6 +41,7 @@ func setUpMiddleware(r chi.Router, cfg *config.Config) { // nolint
 // setUpRoutes sets up the routes for a chi.Router. All API routes are namespaced with '/api/v1'.
 func setUpRoutes(r chi.Router, s *services.Services) {
 	r.Route("/api/v1", func(r chi.Router) {
+		r.Get("/hostname", api.WrapHandler(s, handlers.GetHostName))
 		r.Route("/todos", routes.GetTodoRoutes(s))
 	})
 	r.NotFound(api.WrapHandler(s, handlers.NotFound))
