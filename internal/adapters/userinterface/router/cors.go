@@ -6,10 +6,10 @@ import (
 	"github.com/go-chi/cors"
 )
 
-var productionOrigins = []string{"https://ianyong.github.io"}
-var developmentOrigins = []string{"http://localhost:3000"}
+var productionOrigins = []string{"https://ianyong.github.io"} // nolint
+var developmentOrigins = []string{"http://localhost:3000"}    // nolint
 
-func corsMiddleware(environment string) func(http.Handler) http.Handler {
+func corsMiddleware(environment string) func(http.Handler) http.Handler { // nolint
 	options := cors.Options{
 		AllowedOrigins:   productionOrigins,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},

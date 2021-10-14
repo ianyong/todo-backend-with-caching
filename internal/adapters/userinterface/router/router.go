@@ -22,7 +22,7 @@ func SetUp(s *services.Services, cfg *config.Config) *chi.Mux {
 }
 
 // setUpMiddleware sets up the middleware stack for a chi.Router.
-func setUpMiddleware(r chi.Router, cfg *config.Config) {
+func setUpMiddleware(r chi.Router, cfg *config.Config) { // nolint
 	// Injects a request ID in the context of each request.
 	r.Use(middleware.RequestID)
 	// Sets a http.Request's RemoteAddr to that of either the X-Forwarded-For or X-Real-IP header.
@@ -34,7 +34,8 @@ func setUpMiddleware(r chi.Router, cfg *config.Config) {
 	// Returns a 504 Gateway Timeout after 1 min.
 	r.Use(middleware.Timeout(time.Minute))
 	// Sets up Cross-Origin Resource Sharing.
-	r.Use(corsMiddleware(cfg.Environment))
+	// Disabled for OTOT Task A.
+	// r.Use(corsMiddleware(cfg.Environment))
 }
 
 // setUpRoutes sets up the routes for a chi.Router. All API routes are namespaced with '/api/v1'.
