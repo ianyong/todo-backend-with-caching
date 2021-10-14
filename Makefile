@@ -2,8 +2,11 @@ BINARY_PATH=./bin/server
 SERVER_PATH=./cmd/server/main.go
 LAMBDA_BINARY_PATH=./bin/lambdaserver
 LAMBDA_SERVER_PATH=./cmd/lambdaserver/main.go
+DB_CREATE_BINARY_PATH=./bin/createdb
 DB_CREATE_PATH=./cmd/database/create/main.go
+DB_MIGRATE_BINARY_PATH=./bin/migratedb
 DB_MIGRATE_PATH=./cmd/database/migrate/main.go
+DB_DROP_BINARY_PATH=./bin/dropdb
 DB_DROP_PATH=./cmd/database/drop/main.go
 TESTDB_CREATE_PATH=./cmd/testdatabase/create/main.go
 TESTDB_MIGRATE_PATH=./cmd/testdatabase/migrate/main.go
@@ -40,6 +43,12 @@ build:
 buildlambda:
 	@echo "Building AWS Lambda server at ${LAMBDA_BINARY_PATH}..."
 	@go build -o ${LAMBDA_BINARY_PATH} ${LAMBDA_SERVER_PATH}
+
+buildutils:
+	@echo "Building database utilities..."
+	@go build -o ${DB_CREATE_BINARY_PATH} ${DB_CREATE_PATH}
+	@go build -o ${DB_MIGRATE_BINARY_PATH} ${DB_MIGRATE_PATH}
+	@go build -o ${DB_DROP_BINARY_PATH} ${DB_DROP_PATH}
 
 run:
 	@echo "Running server..."
