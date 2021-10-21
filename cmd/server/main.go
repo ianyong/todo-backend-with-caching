@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/inmemorydatabase"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
@@ -23,7 +24,9 @@ func main() {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	s := services.SetUp(db)
+	cacheDB := inmemorydatabase.SetUp(cfg)
+
+	s := services.SetUp(db, cacheDB)
 
 	addr := fmt.Sprintf(":%d", cfg.ServerPort)
 	r := router.SetUp(s, cfg)

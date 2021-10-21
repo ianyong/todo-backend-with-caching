@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/inmemorydatabase"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
@@ -31,7 +32,9 @@ func SetUp() TestComponents {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	s := services.SetUp(db)
+	cacheDB := inmemorydatabase.SetUp(cfg)
+
+	s := services.SetUp(db, cacheDB)
 	r := router.SetUp(s, cfg)
 
 	return TestComponents{

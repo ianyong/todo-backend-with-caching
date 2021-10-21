@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/inmemorydatabase"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/core/domainmodels"
 	"github.com/ianyong/todo-backend/internal/services"
@@ -22,7 +23,9 @@ func main() {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	s := services.SetUp(db)
+	cacheDB := inmemorydatabase.SetUp(cfg)
+
+	s := services.SetUp(db, cacheDB)
 
 	// Very slow to run but quick & easy solution to seed the database.
 	for i := 1; i <= 100000; i++ {

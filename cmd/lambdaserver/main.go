@@ -9,6 +9,7 @@ import (
 	"github.com/awslabs/aws-lambda-go-api-proxy/chi"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/inmemorydatabase"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
@@ -28,7 +29,10 @@ func main() {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	s := services.SetUp(db)
+	cacheDB := inmemorydatabase.SetUp(cfg)
+
+	s := services.SetUp(db, cacheDB)
+
 	r := router.SetUp(s, cfg)
 	l = chiadapter.New(r)
 
