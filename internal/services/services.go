@@ -1,7 +1,9 @@
 package services
 
 import (
-	"github.com/go-redis/redis/v8"
+	"context"
+
+	"github.com/go-redis/cache/v8"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/dbrepositories"
@@ -10,15 +12,17 @@ import (
 
 type Services struct {
 	TodoService *domainservices.TodoService
-	CacheDB     *redis.Client
+	Cache       *cache.Cache
+	CacheCtx    context.Context
 }
 
-func SetUp(db *sqlx.DB, cacheDB *redis.Client) *Services {
+func SetUp(db *sqlx.DB, cache *cache.Cache) *Services {
 	todoRepo := dbrepositories.NewTodoDatabaseRepository(db)
 	todoService := domainservices.NewTodoService(todoRepo)
 
 	return &Services{
 		TodoService: todoService,
-		CacheDB:     cacheDB,
+		Cache:       cache,
+		CacheCtx:    context.TODO(),
 	}
 }

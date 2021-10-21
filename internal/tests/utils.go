@@ -7,8 +7,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jmoiron/sqlx"
 
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/cache"
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
-	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/inmemorydatabase"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
 	"github.com/ianyong/todo-backend/internal/services"
@@ -32,9 +32,9 @@ func SetUp() TestComponents {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	cacheDB := inmemorydatabase.SetUp(cfg)
+	cache := cache.SetUp(cfg)
 
-	s := services.SetUp(db, cacheDB)
+	s := services.SetUp(db, cache)
 	r := router.SetUp(s, cfg)
 
 	return TestComponents{
