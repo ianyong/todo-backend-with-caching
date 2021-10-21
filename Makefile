@@ -4,6 +4,7 @@ LAMBDA_BINARY_PATH=./bin/lambdaserver
 LAMBDA_SERVER_PATH=./cmd/lambdaserver/main.go
 DB_CREATE_PATH=./cmd/database/create/main.go
 DB_MIGRATE_PATH=./cmd/database/migrate/main.go
+DB_SEED_PATH=./cmd/seed/main.go
 DB_DROP_PATH=./cmd/database/drop/main.go
 TESTDB_CREATE_PATH=./cmd/testdatabase/create/main.go
 TESTDB_MIGRATE_PATH=./cmd/testdatabase/migrate/main.go
@@ -16,6 +17,10 @@ createdb:
 migratedb:
 	@echo "Migrating database..."
 	@go run ${DB_MIGRATE_PATH}
+
+seeddb:
+	@echo "Seeding database..."
+	@go run ${DB_SEED_PATH}
 
 dropdb:
 	@echo "Dropping database..."

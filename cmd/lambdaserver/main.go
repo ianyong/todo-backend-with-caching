@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/awslabs/aws-lambda-go-api-proxy/chi"
 
+	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/cache"
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
 	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
@@ -28,7 +29,10 @@ func main() {
 		log.Fatalf("failed to connect to database: %v\n", err)
 	}
 
-	s := services.SetUp(db)
+	cache := cache.SetUp(cfg)
+
+	s := services.SetUp(db, cache)
+
 	r := router.SetUp(s, cfg)
 	l = chiadapter.New(r)
 

@@ -3,16 +3,15 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
+	"time"
 
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/cache"
 	"github.com/ianyong/todo-backend/internal/adapters/infrastructure/database"
-	"github.com/ianyong/todo-backend/internal/adapters/userinterface/router"
 	"github.com/ianyong/todo-backend/internal/config"
+	"github.com/ianyong/todo-backend/internal/core/domainmodels"
 	"github.com/ianyong/todo-backend/internal/services"
 )
 
-// main is the entry point for the server.
 func main() {
 	cfg, err := config.Load()
 	if err != nil {
@@ -28,11 +27,16 @@ func main() {
 
 	s := services.SetUp(db, cache)
 
-	addr := fmt.Sprintf(":%d", cfg.ServerPort)
-	r := router.SetUp(s, cfg)
-
-	err = http.ListenAndServe(addr, r)
-	if err != nil {
-		log.Fatalln(err)
+	// Very slow to run but quick & easy solution to seed the database.
+	for i := 1; i <= 100000; i++ {
+		_, err := s.TodoService.AddTodo(&domainmodels.Todo{
+			Name:        fmt.Sprintf("Todo %d", i),
+			Description: "Lorem ipsum",
+			DueDate:     time.Date(2021, time.November, 12, 23, 59, 59, 0, time.Local),
+			IsCompleted: false,
+		})
+		if err != nil {
+			log.Fatalf("error when seeding database: %v\n", err)
+		}
 	}
 }

@@ -1,7 +1,9 @@
 # To-do Backend
 
-Created for CS3219 Software Engineering Principles and Patterns Own Time Own Target (OTOT) Task B.
-Makes use of the Ports & Adapters architecture.
+Caching using Redis as an in-memory data structure store.
+
+Created for CS3219 Software Engineering Principles and Patterns Own Time Own Target (OTOT) Task F.
+Built upon OTOT Task B.
 
 Frontend: https://github.com/ianyong/todo-frontend
 
@@ -9,6 +11,7 @@ Frontend: https://github.com/ianyong/todo-frontend
 
 1. Install Go `>= 1.17` by following the instructions [here](https://golang.org/doc/install).
 1. Install PostgreSQL `>= 12` by following the instructions [here](https://www.postgresql.org/download/).
+1. Install Redis `>= 6` by following the instructions [here](https://redis.io/download).
 1. Make a copy of `.env.development` as `.env.development.local`.
    For development on your local system, it is recommended that you connect to PostgreSQL via Unix-domain sockets so that there is no need for database server credentials, allowing you to leave `DB_USER` and `DB_PASSWORD` empty.
    This can be done by setting the `DB_HOST` to the following locations:
@@ -81,3 +84,18 @@ To deploy to AWS Lambda manually:
    ```sh
    $ serverless deploy
    ```
+
+## Testing Caching of API Results
+
+1. Seed the database.
+   ```sh
+   $ make seeddb
+   ```
+   This will insert 100,000 todos into the database.
+   * Note that this might take a while since we are inserting each todo individually at the application-level for scripting convenience.
+1. Start the server.
+   ```sh
+   $ make run
+   ```
+1. Make multiple API calls to `/api/v1/todos` and observe the response time.
+   The cache is set to expire after 10 seconds.

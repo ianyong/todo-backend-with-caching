@@ -14,14 +14,16 @@ import (
 )
 
 type Config struct {
-	Environment string
-	ServerPort  int
-	DBHost      string
-	DBPort      int
-	DBName      string
-	DBUser      string
-	DBPassword  string
-	DBSSLMode   string
+	Environment    string
+	ServerPort     int
+	DBHost         string
+	DBPort         int
+	DBName         string
+	DBUser         string
+	DBPassword     string
+	DBSSLMode      string
+	InMemoryDBHost string
+	InMemoryDBPort int
 }
 
 const (
@@ -119,6 +121,12 @@ func (cfg *Config) loadConfig() error {
 	cfg.DBUser = os.Getenv("DB_USER")
 	cfg.DBPassword = os.Getenv("DB_PASSWORD")
 	cfg.DBSSLMode = os.Getenv("DB_SSLMODE")
+
+	cfg.InMemoryDBHost = os.Getenv("IN_MEMORY_DB_HOST")
+	cfg.InMemoryDBPort, err = parsePort(os.Getenv("IN_MEMORY_DB_PORT"))
+	if err != nil {
+		return fmt.Errorf("unable to parse in-memory db port: %w", err)
+	}
 
 	return nil
 }
