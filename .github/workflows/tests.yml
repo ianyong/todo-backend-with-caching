@@ -25,6 +25,14 @@ jobs:
         ports:
           # Map TCP port 5432 on service container to the host.
           - 5432:5432
+      redis:
+        image: redis
+        # Set health checks to wait until Redis has started.
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout Source
         uses: actions/checkout@v2
