@@ -2,6 +2,7 @@ package todohandlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -19,8 +20,10 @@ func List(r *http.Request, s *services.Services) (*api.Response, error) {
 	var apiResponse *api.Response
 	err := s.Cache.Get(s.CacheCtx, cacheKey, &apiResponse)
 	if err == nil && apiResponse != nil {
+		log.Println("Cache hit!")
 		return apiResponse, nil
 	}
+	log.Println("Cache miss!")
 
 	todos, err := s.TodoService.GetAllTodos()
 	if err != nil {
