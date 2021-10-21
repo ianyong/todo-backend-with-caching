@@ -12,7 +12,7 @@ import (
 // SetUp sets up a cache.Cache connection and returns it.
 func SetUp(cfg *config.Config) *cache.Cache {
 	client := redis.NewClient(&redis.Options{
-		Addr: fmt.Sprintf("localhost:%d", cfg.InMemoryDBPort),
+		Addr: fmt.Sprintf("%s:%d", cfg.InMemoryDBHost, cfg.InMemoryDBPort),
 	})
 	return cache.New(&cache.Options{
 		Redis: client,
